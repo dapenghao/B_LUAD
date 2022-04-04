@@ -1,0 +1,58 @@
+
+library(ggplot2);library(data.table);library(Seurat);library(dplyr);library(tidyr);library(ggpubr)
+#----------------------------------------------------------------------------------------------------------
+#### Fig.1B, Fig.S1C, Fig.1H####
+#----------------------------------------------------------------------------------------------------------
+load("celltype_2.colors.rda")
+load("Cell metaData.rda")
+metaData$sample2 <- paste0(metaData$patient,"-",metaData$Field)
+metaData$celltype_2 <- factor(metaData$celltype_2,levels = c("NaiveB","MemB-1","MemB-2","Plasmablast","Plasma-IgD",
+                                                             "Plasma-IgM","Plasma-IgA1","Plasma-IgG1","Plasma-IgG3",
+                                                             "Plasma-IgA2","Plasma-IgG2","Stressed plasma"))
+# Fig.S1C
+{
+  df <- metaData %>% group_by(sample2,celltype_2,.drop = FALSE) %>% summarise(n=n())
+  iOrd <-  paste0("P",1:16,"-"); iOrd2 <- NULL
+  for (i in iOrd) {iOrd2 <- c(iOrd2,paste0(i,c("tumor","adjacent","intermediate","distant")))}
+  df$sample2 <- factor(df$sample2,levels = iOrd2)
+  ggplot(df, aes(x = sample2, y = n, fill = celltype_2)) + 
+    geom_bar(position = "fill",stat = "identity") + #position="stack" gives numbers
+    scale_fill_manual("legend", values = celltype_2.colors) +
+    theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+}
+
+# Fig.1H
+{
+  df <- metaData %>% group_by(sample2,Field,patient,celltype_2,.drop = FALSE) %>% summarise(n=n())
+  df <- rbind(df[df$Field=="tumor",],df[df$Field=="adjacent",],df[df$Field=="intermediate",],df[df$Field=="distant",])
+  df$sample2 <- factor(df$sample2,levels = rev(unique(paste0(df$sample2))))
+  ggplot(df, aes(x = sample2, y = n, fill = celltype_2)) + 
+    geom_bar(position = "fill",stat = "identity") + #position="stack" gives numbers
+    scale_fill_manual("legend", values = celltype_2.colors) +
+    theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+}
+
+# Fig.1B
+{
+  df <- metaData %>% group_by(sample2,Field,.drop = FALSE) %>% summarise(n=n())
+  iOrd <- unique(metaData[,c("sample2","EpiNegCells")])
+  rownames(iOrd) <- iOrd$sample2
+  df$EpiNegCells <- iOrd[paste0(df$sample2),"EpiNegCells"]
+  df$frac <- df$n/df$EpiNegCells
+  iOrd <-  paste0("P",1:16,"-"); iOrd2 <- NULL
+  for (i in iOrd) {iOrd2 <- c(iOrd2,paste0(i,c("tumor","adjacent","intermediate","distant")))}
+  df$sample2 <- factor(df$sample2,levels = iOrd2)
+  my.colors <- c(tumor="#8c6bb1",adjacent="#4292c6",intermediate="#9ecae1",distant="#deebf7")
+  ggplot(df, aes(x = sample2, y = frac, fill = Field)) + 
+    geom_bar(position = "stack",stat = "identity") + #position="stack" gives numbers
+    scale_fill_manual("legend", values = my.colors) +
+    theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+}
+
+
+
+
+
+
+
+
