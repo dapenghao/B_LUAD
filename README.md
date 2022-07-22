@@ -22,7 +22,7 @@ The Seurat object of all the B lineage cells is available using the following dr
 
 https://www.dropbox.com/s/duliy7xawf0e351/Bcell.rds?dl=0
 
-The Seurat object contains the count matrices, cell metadata and UMAP clustering results.
+The Seurat object contains the count matrices, cell metadata and UMAP clustering results. Normalized data matrix is removed for the sake of file size. Please run the seurate function NormalizeData() before using it. 
 
 ## Data visualization
 
