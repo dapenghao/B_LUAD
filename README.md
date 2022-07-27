@@ -18,11 +18,6 @@ Cell level BCR clones and SHM are available in the provided /Input_data/10Xclone
 
 Cell_ID to cell type association for all the TME cells are available in the provided /input_data/cellType_All.rda.
 
-The Seurat object of all the B lineage cells is available using the following dropbox link:
-
-https://www.dropbox.com/s/duliy7xawf0e351/Bcell.rds?dl=0
-
-The Seurat object contains the count matrices, cell metadata and UMAP clustering results. Normalized data matrix is removed for the sake of file size. Please run the seurate function NormalizeData() before using it. 
 
 ## Data visualization
 
