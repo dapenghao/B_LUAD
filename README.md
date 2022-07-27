@@ -10,14 +10,15 @@ Please contact LWang22@mdanderson.org and hkadara@mdanderson.org with any questi
 
 ## Downloading the data
 
-All the required input data have been organized into R objects that can be downloaded from /Input_data/.
+cell2subtype and cell2BCR_clone have been organized into R objects that can be downloaded from /Input_data/.
 
 Cell level metadata is available in the provided /Input_data/Cell metaData.rda, which contains QC statistics of cells, clinical information of associated samples and cell types. 
 
-Cell level BCR clones and SHM are available in the provided /Input_data/10Xclone_mutation.rda, which contains all the required BCR data of each cell, including VDJ calls, sequence and alignments, clones, SHM and associated information of corresponding samples.
+Cell level BCR clones and SHM are available in the provided /Input_data/10Xclone_mutation.rda, which contains all the required BCR data of each cell, including VDJ calls, clones, SHM and associated information of corresponding samples.
 
 Cell_ID to cell type association for all the TME cells are available in the provided /input_data/cellType_All.rda.
 
+All the raw data are uploading to EGA at the moment and the accession number will be released very soon (2022-07-27).
 
 ## Data visualization
 
